@@ -42,7 +42,7 @@ def takecommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening")
-
+        r.energy_threshold=300
         r.pause_threshold = 1
         audio = r.listen(source)
 
@@ -405,7 +405,8 @@ def process_text(query):
             speak("Are you sure you want to shutdown your computer?")
             ans = takecommand().lower()
             if 'yes' in str(ans) or 'yeah' in str(ans):
-                os.system("shutdown /s /t 1")
+                speak("Switching off your computer")
+                os.system("shutdown /s")
             else:
                 choice()
                 return
@@ -413,7 +414,8 @@ def process_text(query):
             speak("Are you sure you want to hibernate your computer?")
             ans = takecommand().lower()
             if 'yes' in str(ans) or 'yeah' in str(ans):
-                os.system("shutdown /h /t 1")
+                speak("Hibernating")
+                os.system("shutdown /h")
             else:
                 choice()
                 return
@@ -421,7 +423,8 @@ def process_text(query):
             speak("Are you sure you want to restart your computer?")
             ans = takecommand().lower()
             if 'yes' in str(ans) or 'yeah' in str(ans):
-                os.system("shutdown /r /t 1")
+                speak("Restarting")
+                os.system("shutdown /r")
             else:
                 choice()
                 return
@@ -542,18 +545,16 @@ if __name__ == '__main__':
     wishme()
     while(True):
         query = takecommand().lower()
-        
+     
         if(query == "none"):
             speak("Sir,Please speak something")
             continue
         elif "exit" in str(query) or "bye" in str(query)  or "quit" in str(query):
             speak("Ok bye,sir")
             break
-        else:
-          
-          process_text(query)
+        
+       
+        process_text(query)
             
 
       
-        
-
